@@ -1,12 +1,12 @@
 const SoundWaves = ({ side }: { side: "left" | "right" }) => {
-  const rotation = side === "left" ? "-90deg" : "90deg";
+  const isLeft = side === "left";
   
   return (
     <div 
       className="absolute top-1/2 -translate-y-1/2"
       style={{ 
-        [side]: '20%',
-        transform: `translateY(-50%) rotate(${rotation})`
+        [side]: '10%',
+        transform: `translateY(-50%) ${isLeft ? '' : 'scaleX(-1)'}`
       }}
     >
       <div className="relative w-[170px] h-[159px]">
