@@ -3,13 +3,14 @@ const SoundWaves = ({ side }: { side: "left" | "right" }) => {
   
   return (
     <div 
-      className="absolute top-1/2 -translate-y-1/2"
+      className="absolute"
       style={{ 
-        [side]: '10%',
+        top: '50%',
+        [side]: '0',
         transform: `translateY(-50%) ${isLeft ? '' : 'scaleX(-1)'}`
       }}
     >
-      <div className="relative w-[170px] h-[159px]">
+      <div className="relative w-[170px] h-[159px] rotate-90">
         {/* Outer wave */}
         <svg
           className="absolute inset-0 animate-wave-1"
