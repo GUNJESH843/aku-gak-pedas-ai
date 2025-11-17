@@ -1,5 +1,6 @@
 import { X, Mic, Settings } from "lucide-react";
 import farmVaidyaIcon from "@/assets/farm-vaidya-icon.png";
+import SoundWaves from "./SoundWaves";
 
 const VoiceInterface = () => {
   return (
@@ -12,16 +13,25 @@ const VoiceInterface = () => {
 
       {/* Main content */}
       <div className="relative z-10 flex items-center justify-center">
-        {/* Center icon */}
-        <div className="flex flex-col items-center gap-8">
-          <img 
-            src={farmVaidyaIcon} 
-            alt="Farm Vaidya AI" 
-            className="w-[238px] h-[238px]"
-          />
-          <p className="text-2xl font-semibold text-text-primary">
-            I'm listening.....
-          </p>
+        {/* Center icon with waves */}
+        <div className="relative flex items-center justify-center">
+          {/* Left sound waves */}
+          <SoundWaves side="left" />
+
+          {/* Center icon */}
+          <div className="flex flex-col items-center gap-8">
+            <img 
+              src={farmVaidyaIcon} 
+              alt="Farm Vaidya AI" 
+              className="w-[238px] h-[238px]"
+            />
+            <p className="text-2xl font-semibold text-text-primary">
+              I'm listening.....
+            </p>
+          </div>
+
+          {/* Right sound waves */}
+          <SoundWaves side="right" />
         </div>
       </div>
 
