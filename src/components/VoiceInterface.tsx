@@ -26,11 +26,16 @@ const VoiceInterface = () => {
         throw new Error(error.message || 'Failed to start session');
       }
 
-      if (!data?.dailyRoom) {
+      const payload = typeof data === 'string' ? JSON.parse(data) : data;
+      const roomUrl = payload?.dailyRoom;
+      const roomToken = payload?.dailyToken;
+
+      if (!roomUrl) {
+        console.log('Unexpected pipecat-start payload:', payload);
         throw new Error('No room URL received from server');
       }
 
-      console.log('Pipecat session started:', data);
+      console.log('Pipecat session started:', payload);
 
       // Create Daily call and join the room
       const call = Daily.createCallObject({
@@ -72,9 +77,9 @@ const VoiceInterface = () => {
       });
 
       // Join the room with token if provided
-      const joinOptions: { url: string; token?: string } = { url: data.dailyRoom };
-      if (data.dailyToken) {
-        joinOptions.token = data.dailyToken;
+      const joinOptions: { url: string; token?: string } = { url: roomUrl };
+      if (roomToken) {
+        joinOptions.token = roomToken;
       }
 
       await call.join(joinOptions);
