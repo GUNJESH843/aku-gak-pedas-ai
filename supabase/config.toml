@@ -1,1 +1,4 @@
 project_id = "jkzahojaniiacaiongeb"
+
+[functions.pipecat-start]
+verify_jwt = false
