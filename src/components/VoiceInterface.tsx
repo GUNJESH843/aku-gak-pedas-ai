@@ -41,6 +41,7 @@ const VoiceInterface = () => {
       const call = Daily.createCallObject({
         audioSource: true,
         videoSource: false,
+        subscribeToTracksAutomatically: true,
       });
 
       callRef.current = call;
@@ -66,6 +67,30 @@ const VoiceInterface = () => {
         });
         setIsConnected(false);
         setIsConnecting(false);
+      });
+
+      // Handle remote audio tracks from the bot
+      call.on('track-started', (event) => {
+        console.log('Track started:', event);
+        if (event?.participant && !event.participant.local && event.track?.kind === 'audio') {
+          console.log('Bot audio track started, creating audio element');
+          const audioEl = document.createElement('audio');
+          audioEl.srcObject = new MediaStream([event.track]);
+          audioEl.autoplay = true;
+          audioEl.id = `audio-${event.participant.session_id}`;
+          document.body.appendChild(audioEl);
+          audioEl.play().catch(err => console.error('Audio play error:', err));
+        }
+      });
+
+      call.on('track-stopped', (event) => {
+        console.log('Track stopped:', event);
+        if (event?.participant && !event.participant.local) {
+          const audioEl = document.getElementById(`audio-${event.participant.session_id}`);
+          if (audioEl) {
+            audioEl.remove();
+          }
+        }
       });
 
       // Track when the bot is speaking
