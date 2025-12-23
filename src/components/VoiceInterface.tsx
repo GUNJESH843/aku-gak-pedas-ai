@@ -26,7 +26,7 @@ const VoiceInterface = () => {
         throw new Error(error.message || 'Failed to start session');
       }
 
-      if (!data?.room_url) {
+      if (!data?.dailyRoom) {
         throw new Error('No room URL received from server');
       }
 
@@ -72,9 +72,9 @@ const VoiceInterface = () => {
       });
 
       // Join the room with token if provided
-      const joinOptions: { url: string; token?: string } = { url: data.room_url };
-      if (data.token) {
-        joinOptions.token = data.token;
+      const joinOptions: { url: string; token?: string } = { url: data.dailyRoom };
+      if (data.dailyToken) {
+        joinOptions.token = data.dailyToken;
       }
 
       await call.join(joinOptions);
