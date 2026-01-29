@@ -19,7 +19,7 @@ serve(async (req) => {
 
     console.log('Starting Pipecat agent session...');
 
-    const response = await fetch('https://api.pipecat.daily.co/v1/public/agent/start', {
+    const response = await fetch('https://api.pipecat.daily.co/v1/public/webagent/start', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${PIPECAT_API_KEY}`,
